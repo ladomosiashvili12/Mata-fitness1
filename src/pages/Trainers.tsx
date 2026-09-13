@@ -1,18 +1,22 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { trainers } from '@/data';
+import { useLanguage } from '@/i18n/LanguageContext';
+import { useDocumentMeta } from '@/i18n/useDocumentMeta';
 
 export default function Trainers() {
+  const { t, content, localizedPath } = useLanguage();
+  useDocumentMeta(t.seo.trainers.title, t.seo.trainers.description);
+
   return (
     <div className="page-wrap page-width">
       <section className="page-hero">
-        <div className="section-label">03 / შენი გუნდი</div>
-        <h1>შეხვდი<br /><em>გუნდს.</em></h1>
-        <Link className="outline-button" to="/contact">დაგვიკავშირდი <ArrowRight size={17} /></Link>
+        <div className="section-label">{t.trainers.label}</div>
+        <h1>{t.trainers.h1Line1}<br /><em>{t.trainers.h1Emphasis}</em></h1>
+        <Link className="outline-button" to={localizedPath('/contact')}>{t.trainers.contactCta} <ArrowRight size={17} /></Link>
       </section>
 
       <section className="trainer-grid trainer-grid-page">
-        {trainers.map((trainer, index) => (
+        {content.trainers.map((trainer, index) => (
           <article className="trainer-card" key={trainer.name}>
             <div className="trainer-photo">
               <img src={trainer.image} alt={trainer.name} />
